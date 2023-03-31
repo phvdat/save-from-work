@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import {
-	AutoSizer,
 	CellMeasurer,
 	CellMeasurerCache,
-	createMasonryCellPositioner,
 	Masonry,
 	WindowScroller,
 } from 'react-virtualized';
 import { createCellPositioner } from 'react-virtualized/dist/es/Masonry';
 
 const ListMasterCard = () => {
-	const [columnWidth, setColumnWidth] = useState(220);
-	const [columnCount, setColumnCount] = useState(4);
+	const [columnWidth] = useState(220);
+	const [columnCount] = useState(4);
 	const _cache = new CellMeasurerCache({
 		defaultHeight: 250,
 		defaultWidth: 200,
@@ -32,48 +30,43 @@ const ListMasterCard = () => {
 					style={{
 						...style,
 						width: columnWidth,
-						// height: 386,
 					}}
 				>
-					{index}
+					<div
+						style={{
+							background: 'gray',
+							borderRadius: "0.5rem",
+							height: 386,
+							marginBottom: "0.5rem",
+							width: "100%",
+							fontSize: 20,
+							color: "white",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center"
+						}}
+					>
+						{index}
+					</div>
 				</div>
 			</CellMeasurer>
 		);
 	};
-	const _onResize = ({ width }) => {
-		setColumnCount(width / (columnWidth + 24));
-		_cellPositioner.reset({
-			columnCount,
-			columnWidth,
-			spacer: 24,
-		});
-		// _masonry.recomputeCellPositions();
-	};
 	return (
 		<div>
-			<WindowScroller scrollElement={this.context.customElement}>
-				{({ height, scrollTop }) => (
-					// <AutoSizerVirtualized
-					//   disableHeight
-					//   height={height}
-					//   onResize={_onResize}
-					//   overscanByPixels={386}
-					//   scrollTop={scrollTop}
-					// >
-					//   {() => (
+			<WindowScroller>
+				{({ height, isScrolling, registerChild, scrollTop }) => (
 					<Masonry
 						autoHeight
 						cellCount={30}
 						cellMeasurerCache={_cache}
 						cellPositioner={_cellPositioner}
 						cellRenderer={_cellRenderer}
-						height={900}
-						width={900}
+						height={height}
+						overscanByPixels={0}
 						scrollTop={scrollTop}
-						overscanByPixels={386}
+						width={900}
 					/>
-					//   )}
-					// </AutoSizerVirtualized>
 				)}
 			</WindowScroller>
 		</div>

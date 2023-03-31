@@ -122,7 +122,7 @@ class OverviewList extends React.PureComponent {
 				{({ height, isScrolling, registerChild, scrollTop }) => (
 					<Masonry
 						autoHeight
-						cellCount={10}
+						cellCount={30}
 						cellMeasurerCache={this._cache}
 						cellPositioner={this._cellPositioner}
 						cellRenderer={this._cellRenderer}
